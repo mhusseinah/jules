@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:souq_cars/add_car_screen.dart';
 import 'package:souq_cars/chat_screen.dart';
+import 'package:souq_cars/client_screen.dart';
 import 'package:souq_cars/favorites_screen.dart';
 import 'package:souq_cars/login_screen.dart';
+import 'package:souq_cars/seller_screen.dart';
 import 'package:souq_cars/signup_screen.dart';
 import 'car.dart';
 
@@ -43,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Car> _filteredCars = [];
   String _searchText = '';
   final List<Car> _favoriteCars = [];
+  bool _isSeller = false;
 
   @override
   void initState() {
@@ -114,6 +117,27 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Souq Cars'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.person),
+            onPressed: () {
+              if (_isSeller) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SellerScreen(cars: _cars),
+                  ),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ClientScreen(favoriteCars: _favoriteCars),
+                  ),
+                );
+              }
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.favorite),
             onPressed: () {
               Navigator.push(
@@ -165,6 +189,23 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Text('Seller'),
+                Switch(
+                  value: _isSeller,
+                  onChanged: (value) {
+                    setState(() {
+                      _isSeller = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
