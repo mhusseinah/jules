@@ -14,21 +14,26 @@ class SellerScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 50,
                   child: Icon(Icons.person, size: 50),
                 ),
-                SizedBox(height: 16.0),
-                Text(
+                const SizedBox(height: 16.0),
+                const Text(
                   'Seller Name',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 8.0),
-                Text('seller@example.com'),
+                const SizedBox(height: 8.0),
+                const Text('seller@example.com'),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Edit Profile'),
+                ),
               ],
             ),
           ),
@@ -51,6 +56,12 @@ class SellerScreen extends StatelessWidget {
                     leading: Image.asset(car.imageUrl),
                     title: Text('${car.brand} ${car.model}'),
                     subtitle: Text('Year: ${car.year} - Price: \$${car.price}'),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        // TODO: Implement delete listing functionality
+                      },
+                    ),
                   ),
                 );
               },

@@ -14,21 +14,26 @@ class ClientScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 50,
                   child: Icon(Icons.person, size: 50),
                 ),
-                SizedBox(height: 16.0),
-                Text(
+                const SizedBox(height: 16.0),
+                const Text(
                   'Client Name',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 8.0),
-                Text('client@example.com'),
+                const SizedBox(height: 8.0),
+                const Text('client@example.com'),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Edit Profile'),
+                ),
               ],
             ),
           ),
@@ -36,7 +41,7 @@ class ClientScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-              'My Favorites',
+              'My Interests',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
