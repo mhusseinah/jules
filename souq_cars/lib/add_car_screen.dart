@@ -20,13 +20,15 @@ class _AddCarScreenState extends State<AddCarScreen> {
   final _priceController = TextEditingController();
   final _imageUrlController = TextEditingController();
   final _locationController = TextEditingController();
-  XFile? _imageFile;
+  final _transmissionController = TextEditingController();
+  final _fuelTypeController = TextEditingController();
+  final _mileageController = TextEditingController();
+  List<XFile> _imageFiles = [];
 
   Future<void> _pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFiles = await ImagePicker().pickMultiImage();
     setState(() {
-      _imageFile = pickedFile;
+      _imageFiles = pickedFiles;
     });
   }
 
@@ -77,12 +79,24 @@ class _AddCarScreenState extends State<AddCarScreen> {
               ),
             ),
             const SizedBox(height: 16.0),
-            _imageFile == null
-                ? const Text('No image selected.')
-                : Image.file(File(_imageFile!.path)),
+            _imageFiles.isEmpty
+                ? const Text('No images selected.')
+                : SizedBox(
+                    height: 150,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _imageFiles.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.file(File(_imageFiles[index].path)),
+                        );
+                      },
+                    ),
+                  ),
             ElevatedButton(
               onPressed: _pickImage,
-              child: const Text('Select Image'),
+              child: const Text('Select Images'),
             ),
             const SizedBox(height: 16.0),
             TextField(
@@ -92,6 +106,28 @@ class _AddCarScreenState extends State<AddCarScreen> {
               ),
             ),
             const SizedBox(height: 16.0),
+            TextField(
+              controller: _transmissionController,
+              decoration: const InputDecoration(
+                labelText: 'Transmission',
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: _fuelTypeController,
+              decoration: const InputDecoration(
+                labelText: 'Fuel Type',
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: _mileageController,
+              decoration: const InputDecoration(
+                labelText: 'Mileage',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 final car = Car(
@@ -99,8 +135,11 @@ class _AddCarScreenState extends State<AddCarScreen> {
                   model: _modelController.text,
                   year: int.parse(_yearController.text),
                   price: int.parse(_priceController.text),
-                  imageUrl: _imageFile?.path ?? '',
+                  imageUrls: _imageFiles.map((e) => e.path).toList(),
                   location: _locationController.text,
+                  transmission: _transmissionController.text,
+                  fuelType: _fuelTypeController.text,
+                  mileage: int.parse(_mileageController.text),
                 );
                 widget.onCarAdded(car);
                 Navigator.pop(context);

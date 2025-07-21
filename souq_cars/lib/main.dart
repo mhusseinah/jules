@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:souq_cars/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:souq_cars/push_notification_service.dart';
 import 'package:souq_cars/utils/image_utils.dart';
 
 import 'app_localizations.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await PushNotificationService().initialize();
   createPlaceholderImage();
   runApp(const MyApp());
 }

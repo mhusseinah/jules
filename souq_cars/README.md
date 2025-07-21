@@ -46,3 +46,4 @@ This project is configured to work with a Firebase backend. You will need to cre
 4. Place the `google-services.json` file in the `android/app` directory.
 5. Place the `GoogleService-Info.plist` file in the `ios/Runner` directory.
 6. Enable Firebase Authentication and Firestore in the Firebase console.
+7. Enable Firebase Cloud Messaging and add the server key to your backend.
