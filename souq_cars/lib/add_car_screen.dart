@@ -66,6 +66,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
             ),
             const SizedBox(height: 16.0),
             TextField(
+              controller: _locationController,
               decoration: const InputDecoration(
                 labelText: 'Location',
               ),

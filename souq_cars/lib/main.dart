@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:souq_cars/home_screen.dart';
+import 'package:souq_cars/utils/image_utils.dart';
+
 import 'app_localizations.dart';
 
 void main() {
+  createPlaceholderImage();
   runApp(const MyApp());
 }
 

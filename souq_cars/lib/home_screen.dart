@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       model: 'Camry',
       year: 2021,
       price: 25000,
-      imageUrl: 'https://via.placeholder.com/150',
+      imageUrl: 'assets/images/placeholder.png',
       location: 'New York',
     ),
     Car(
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       model: 'Civic',
       year: 2022,
       price: 22000,
-      imageUrl: 'https://via.placeholder.com/150',
+      imageUrl: 'assets/images/placeholder.png',
       location: 'Los Angeles',
     ),
     Car(
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
       model: 'Mustang',
       year: 2020,
       price: 45000,
-      imageUrl: 'https://via.placeholder.com/150',
+      imageUrl: 'assets/images/placeholder.png',
       location: 'New York',
     ),
   ];
@@ -203,7 +203,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Card(
                   margin: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    leading: Image.network(car.imageUrl),
+                    leading: car.imageUrl.startsWith('http')
+                        ? Image.network(car.imageUrl)
+                        : Image.asset(car.imageUrl),
                     title: Text('${car.brand} ${car.model}'),
                     subtitle: Text('Year: ${car.year} - Price: \$${car.price}'),
                     trailing: Row(
