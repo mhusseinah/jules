@@ -19,7 +19,7 @@ class FavoritesScreen extends StatelessWidget {
           return Card(
             margin: const EdgeInsets.all(8.0),
             child: ListTile(
-              leading: Image.network(car.imageUrl),
+              leading: Image.asset(car.imageUrls.first),
               title: Text('${car.brand} ${car.model}'),
               subtitle: Text('Year: ${car.year} - Price: \$${car.price}'),
             ),
