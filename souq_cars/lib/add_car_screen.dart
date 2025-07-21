@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:souq_cars/car.dart';
 
 class AddCarScreen extends StatefulWidget {
@@ -17,6 +20,15 @@ class _AddCarScreenState extends State<AddCarScreen> {
   final _priceController = TextEditingController();
   final _imageUrlController = TextEditingController();
   final _locationController = TextEditingController();
+  XFile? _imageFile;
+
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      _imageFile = pickedFile;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +77,14 @@ class _AddCarScreenState extends State<AddCarScreen> {
               ),
             ),
             const SizedBox(height: 16.0),
+            _imageFile == null
+                ? const Text('No image selected.')
+                : Image.file(File(_imageFile!.path)),
+            ElevatedButton(
+              onPressed: _pickImage,
+              child: const Text('Select Image'),
+            ),
+            const SizedBox(height: 16.0),
             TextField(
               controller: _locationController,
               decoration: const InputDecoration(
@@ -79,7 +99,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
                   model: _modelController.text,
                   year: int.parse(_yearController.text),
                   price: int.parse(_priceController.text),
-                  imageUrl: _imageUrlController.text,
+                  imageUrl: _imageFile?.path ?? '',
                   location: _locationController.text,
                 );
                 widget.onCarAdded(car);
