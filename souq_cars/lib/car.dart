@@ -3,7 +3,7 @@ class Car {
   final String model;
   final int year;
   final int price;
-  final List<String> imageUrls;
+  final String imageUrl;
   final String location;
   final String transmission;
   final String fuelType;
@@ -14,7 +14,7 @@ class Car {
     required this.model,
     required this.year,
     required this.price,
-    required this.imageUrls,
+    required this.imageUrl,
     required this.location,
     required this.transmission,
     required this.fuelType,

@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:souq_cars/car.dart';
 
 class AddCarScreen extends StatefulWidget {
@@ -23,14 +20,6 @@ class _AddCarScreenState extends State<AddCarScreen> {
   final _transmissionController = TextEditingController();
   final _fuelTypeController = TextEditingController();
   final _mileageController = TextEditingController();
-  List<XFile> _imageFiles = [];
-
-  Future<void> _pickImage() async {
-    final pickedFiles = await ImagePicker().pickMultiImage();
-    setState(() {
-      _imageFiles = pickedFiles;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,26 +68,6 @@ class _AddCarScreenState extends State<AddCarScreen> {
               ),
             ),
             const SizedBox(height: 16.0),
-            _imageFiles.isEmpty
-                ? const Text('No images selected.')
-                : SizedBox(
-                    height: 150,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: _imageFiles.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.file(File(_imageFiles[index].path)),
-                        );
-                      },
-                    ),
-                  ),
-            ElevatedButton(
-              onPressed: _pickImage,
-              child: const Text('Select Images'),
-            ),
-            const SizedBox(height: 16.0),
             TextField(
               controller: _locationController,
               decoration: const InputDecoration(
@@ -135,7 +104,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
                   model: _modelController.text,
                   year: int.parse(_yearController.text),
                   price: int.parse(_priceController.text),
-                  imageUrls: _imageFiles.map((e) => e.path).toList(),
+                  imageUrl: _imageUrlController.text,
                   location: _locationController.text,
                   transmission: _transmissionController.text,
                   fuelType: _fuelTypeController.text,
